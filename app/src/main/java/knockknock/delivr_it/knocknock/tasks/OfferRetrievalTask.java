@@ -1,6 +1,5 @@
 package knockknock.delivr_it.knocknock.tasks;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -9,7 +8,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -46,10 +44,12 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
 
     @Override
     protected void onPostExecute(JSONArray offers) {
-        Toast.makeText(context, "Done getting offers", Toast.LENGTH_SHORT).show();
         try {
             new OfferImageDownloaderTask(context).downloadAndStoreImages(offers);
-        } catch (JSONException e) {
+            Toast.makeText(context, "Done getting offers", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Toast.makeText(context, "Could not get offers", Toast.LENGTH_SHORT).show();
         }
     }
 }

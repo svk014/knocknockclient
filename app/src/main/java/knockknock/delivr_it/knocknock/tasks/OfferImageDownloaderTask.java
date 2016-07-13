@@ -25,7 +25,7 @@ public class OfferImageDownloaderTask {
         this.mainActivity = mainActivity;
     }
 
-    public void downloadAndStoreImages(JSONArray offers) throws JSONException {
+    public void downloadAndStoreImages(JSONArray offers) throws Exception {
         for (int i = 0; i < offers.length(); i++) {
             final JSONObject jsonObject = offers.getJSONObject(i);
             String image_url = jsonObject.getString("image_url");

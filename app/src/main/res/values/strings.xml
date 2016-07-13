@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">KnocKnock</string>
     <string name="search">Search Items</string>
+    <string name="app_label">KnocKnock</string>
+    <string name="search_hint">Search</string>
+    <string name="search_knocknock">Search KnocKnock</string>
 </resources>

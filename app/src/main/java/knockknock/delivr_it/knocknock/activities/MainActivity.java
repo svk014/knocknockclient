@@ -2,8 +2,11 @@ package knockknock.delivr_it.knocknock.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
-import android.widget.ImageView;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -17,6 +20,10 @@ import knockknock.delivr_it.knocknock.tasks.OfferRetrievalTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    private EditText searchBar;
+    private View search_view;
+
+
     private SliderLayout dailyOffersSliderLayout;
 
     @Override
@@ -24,10 +31,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new OfferRetrievalTask(MainActivity.this).execute();
+        startOfferRetrieval();
+        setupSearchBar();
         displayDailyOffersOnSliderLayout();
 
+    }
 
+    private void setupSearchBar() {
+        searchBar = (EditText) findViewById(R.id.search_bar);
+        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    search_view = findViewById(R.id.custom_search_view);
+                    search_view.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+
+    private void startOfferRetrieval() {
+        new OfferRetrievalTask(MainActivity.this).execute();
     }
 
     public void displayDailyOffersOnSliderLayout() {
@@ -48,8 +73,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        dailyOffersSliderLayout.startAutoCycle();
+        super.onResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public void closeCustomSearchView(View view) {
+        searchBar.clearFocus();
+        search_view.setVisibility(View.INVISIBLE);
+
     }
 }
