@@ -26,6 +26,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorAccent"
             android:orientation="vertical">
 
             <com.daimajia.slider.library.SliderLayout
@@ -33,13 +34,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/custom_search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#e57373"
+            android:background="@color/colorAccent"
             android:padding="10dp"
             android:paddingBottom="0dp"
             android:visibility="invisible">

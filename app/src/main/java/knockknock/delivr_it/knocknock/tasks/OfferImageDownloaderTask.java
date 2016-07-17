@@ -25,7 +25,9 @@ public class OfferImageDownloaderTask {
         this.mainActivity = mainActivity;
     }
 
-    public void downloadAndStoreImages(JSONArray offers) throws Exception {
+    private int offers_processed = 0;
+
+    public void downloadAndStoreImages(final JSONArray offers) throws Exception {
         for (int i = 0; i < offers.length(); i++) {
             final JSONObject jsonObject = offers.getJSONObject(i);
             String image_url = jsonObject.getString("image_url");
@@ -42,9 +44,13 @@ public class OfferImageDownloaderTask {
                     try {
                         String image_local_path = storeImageInFile(mainActivity, "offers", System.currentTimeMillis() + "", source);
                         jsonObject.put("image_local_path", image_local_path);
-                    } catch (JSONException e) {
+                    } catch (JSONException ignored) {
                     }
                     saveOfferToDatabase(jsonObject);
+                    offers_processed++;
+                    if (offers_processed == offers.length())
+                        mainActivity.refreshActivity();
+
                     return source;
                 }
 
@@ -53,7 +59,6 @@ public class OfferImageDownloaderTask {
                     return null;
                 }
             }).fetch();
-            mainActivity.displayDailyOffersOnSliderLayout();
 
         }
 

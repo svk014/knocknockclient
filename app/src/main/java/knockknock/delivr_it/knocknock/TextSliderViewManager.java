@@ -38,7 +38,7 @@ public class TextSliderViewManager {
             TextSliderView textSliderView = new TextSliderView(context);
             textSliderView
                     .description("Loading offers")
-                    .image(R.drawable.brunch)
+                    .image(R.drawable.default_food_image)
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop);
             textSliderViews.add(textSliderView);
         }

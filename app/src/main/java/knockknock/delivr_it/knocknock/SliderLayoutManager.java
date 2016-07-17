@@ -1,5 +1,7 @@
 package knockknock.delivr_it.knocknock;
 
+import android.view.animation.Interpolator;
+
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -15,8 +17,8 @@ public class SliderLayoutManager {
     }
 
     public void configureSliderLayout() {
-        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
+        sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Top);
         sliderLayout.setCustomAnimation(new DescriptionAnimation());
         sliderLayout.setDuration(4000);
     }
