@@ -1,4 +1,4 @@
-package knockknock.delivr_it.knocknock;
+package knockknock.delivr_it.knocknock.managers;
 
 import android.view.animation.Interpolator;
 
@@ -17,7 +17,7 @@ public class SliderLayoutManager {
     }
 
     public void configureSliderLayout() {
-        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
+        sliderLayout.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
         sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Top);
         sliderLayout.setCustomAnimation(new DescriptionAnimation());
         sliderLayout.setDuration(4000);

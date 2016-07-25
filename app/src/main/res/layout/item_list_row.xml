@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:clickable="true"
-        app:el_duration="200"
+        app:el_duration="0"
         app:el_expanded="false">
 
         <RelativeLayout
@@ -72,10 +72,12 @@
             app:layout_expandable="true">
 
             <ImageView
+                android:id="@+id/item_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_food_image" />
+                android:src="@drawable/default_food_image"
+                android:contentDescription="@string/item_image" />
         </RelativeLayout>
 
 

@@ -4,11 +4,16 @@
     <item
         android:id="@+id/alerts"
         android:icon="@drawable/ic_notifications_active_white_24dp"
-        android:title="@string/search"
+        android:title="@string/notifications"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/cart"
         android:icon="@drawable/ic_shopping_basket_white_24dp"
-        android:title="@string/search"
+        android:title="@string/shopping_cart"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person_white_24dp"
+        android:title="@string/my_profile"
         app:showAsAction="ifRoom" />
 </menu>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="@string/address_info_header"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:drawableLeft="@android:drawable/ic_menu_view"
+        android:drawableStart="@android:drawable/ic_menu_view"
+        android:hint="@string/address_info_name" />
+
+    <EditText
+        android:id="@+id/phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:drawableStart="@android:drawable/ic_menu_call"
+        android:hint="@string/address_info_phone_number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/alternate_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:drawableStart="@android:drawable/ic_menu_call"
+        android:hint="@string/address_info_alternate_phone_number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:drawableLeft="@android:drawable/ic_menu_send"
+        android:drawableStart="@android:drawable/ic_menu_send"
+        android:hint="@string/address_info_email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:drawableLeft="@android:drawable/ic_menu_compass"
+        android:drawableStart="@android:drawable/ic_menu_compass"
+        android:hint="@string/address_info_address"
+        android:maxLines="3" />
+</LinearLayout>

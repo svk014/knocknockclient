@@ -1,4 +1,4 @@
-package knockknock.delivr_it.knocknock;
+package knockknock.delivr_it.knocknock.managers;
 
 import android.content.Context;
 
@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import knockknock.delivr_it.knocknock.R;
 import knockknock.delivr_it.knocknock.models.Offer;
 
 public class TextSliderViewManager {

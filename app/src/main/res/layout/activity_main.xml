@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:mainActivity=".activities.MainActivity">
+    tools:mainActivityInstance=".activities.MainActivity">
 
     <EditText
         android:id="@+id/search_bar"
@@ -29,15 +29,37 @@
             android:background="@color/colorAccent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:drawableLeft="@drawable/ic_local_offer"
+                android:drawableStart="@drawable/ic_local_offer"
+                android:gravity="center_vertical"
+                android:text="@string/offers"
+                android:textSize="15sp" />
+
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:drawableLeft="@drawable/ic_explore"
+                android:drawableStart="@drawable/ic_explore"
+                android:gravity="center_vertical"
+                android:text="@string/explore"
+                android:textSize="15sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/main_menu"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:paddingTop="3dp" />
         </LinearLayout>
 
         <RelativeLayout

@@ -15,13 +15,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import knockknock.delivr_it.knocknock.OfferStorageManager;
+import knockknock.delivr_it.knocknock.managers.OfferStorageManager;
 import knockknock.delivr_it.knocknock.activities.MainActivity;
 
-public class OfferImageDownloaderTask {
+public class OfferImageWebToStorageTask {
     private MainActivity mainActivity;
 
-    public OfferImageDownloaderTask(MainActivity mainActivity) {
+    public OfferImageWebToStorageTask(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
@@ -35,8 +35,10 @@ public class OfferImageDownloaderTask {
 
             boolean offerExists = OfferStorageManager.offerExists(mainActivity, id);
 
-            if (offerExists)
+            if (offerExists) {
+                offers_processed++;
                 continue;
+            }
 
             Picasso.with(mainActivity).load(image_url).transform(new Transformation() {
                 @Override
@@ -79,12 +81,14 @@ public class OfferImageDownloaderTask {
             fos = new FileOutputStream(myImageFile);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             return myImageFile.getAbsolutePath();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                fos.close();
-            } catch (IOException e) {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

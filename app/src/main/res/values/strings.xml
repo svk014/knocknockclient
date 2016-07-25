@@ -4,4 +4,23 @@
     <string name="app_label">KnocKnock</string>
     <string name="search_hint">Search</string>
     <string name="search_knocknock">Search KnocKnock</string>
+    <string name="explore">EXPLORE</string>
+    <string name="offers">OFFERS</string>
+    <string name="notifications">Notifications</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="my_profile">My Profile</string>
+    <string name="close">CLOSE</string>
+    <string name="item_image">item image</string>
+    <string name="place_order">PLACE ORDER</string>
+    <string name="no_order_to_place">NO ITEMS TO ORDER.</string>
+    <string name="address_info_name">Name</string>
+    <string name="address_info_phone_number">Working phone number</string>
+    <string name="address_info_address">Address</string>
+    <string name="address_info_email">Email</string>
+    <string name="address_info_header">DELIVERY ADDRESS</string>
+    <string name="address_info_alternate_phone_number">Alternate phone number</string>
+    <string name="confirm_order">CONFIRM ORDER</string>
+    <string name="standard_delivery_message">Free delivery of food within 45 minutes guaranteed.</string>
+    <string name="express_delivery_message">Delivery of grocery, cosmetics and stationary within 45 minutes guaranteed.\nFor extra Price.</string>
+    <string name="standard_delayed_message">Free delivery of food, grocery, cosmetics and stationary at a time convenient for you.</string>
 </resources>

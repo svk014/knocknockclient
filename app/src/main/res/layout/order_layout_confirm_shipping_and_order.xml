@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".activities.OrderViewActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#ef5350"
+                android:padding="5dp">
+
+                <ToggleButton
+                    android:id="@+id/standard_delivery_toggle_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/delivery_mode_standard_drawable"
+                    android:onClick="setDeliveryType"
+                    android:tag="standard"
+                    android:textOff="@null"
+                    android:textOn="@null" />
+
+                <TextView
+                    android:id="@+id/standard_delivery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/standard_delivery_toggle_button"
+                    android:text="Standard"
+                    tools:ignore="HardcodedText" />
+
+                <ToggleButton
+                    android:id="@+id/express_delivery_toggle_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/delivery_mode_express_drawable"
+                    android:onClick="setDeliveryType"
+                    android:tag="express"
+                    android:textOff="@null"
+                    android:textOn="@null" />
+
+                <TextView
+                    android:id="@+id/express_delivery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/standard_delivery_toggle_button"
+                    android:layout_centerHorizontal="true"
+                    android:text="Express"
+                    tools:ignore="HardcodedText" />
+
+                <ToggleButton
+                    android:id="@+id/delayed_delivery_toggle_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/delivery_mode_timer_drawable"
+                    android:onClick="setDeliveryType"
+                    android:tag="delayed"
+                    android:textOff="@null"
+                    android:textOn="@null" />
+
+                <TextView
+                    android:id="@+id/delayed_delivery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/standard_delivery_toggle_button"
+                    android:text="Delayed"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/order_type_information_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/address_information_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="@string/confirm_order"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

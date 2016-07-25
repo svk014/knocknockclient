@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -18,10 +18,12 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import java.util.List;
 
 import knockknock.delivr_it.knocknock.R;
-import knockknock.delivr_it.knocknock.SliderLayoutManager;
-import knockknock.delivr_it.knocknock.TextSliderViewManager;
+import knockknock.delivr_it.knocknock.managers.MainMenuItemsManager;
+import knockknock.delivr_it.knocknock.managers.SliderLayoutManager;
+import knockknock.delivr_it.knocknock.managers.TextSliderViewManager;
 import knockknock.delivr_it.knocknock.adapters.MainActivityMenuAdapter;
 import knockknock.delivr_it.knocknock.tasks.OfferRetrievalTask;
+import knockknock.delivr_it.knocknock.tasks.UpdateDatabaseTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,15 +40,22 @@ public class MainActivity extends AppCompatActivity {
 
         inflateMainMenuItems();
         startOfferRetrieval();
+        startDatabaseCheck();
         setupSearchBar();
         displayDailyOffersOnSliderLayout();
 
 
     }
 
+    private void startDatabaseCheck() {
+        new UpdateDatabaseTask(getApplicationContext()).checkAndUpdate();
+    }
+
     private void inflateMainMenuItems() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_menu);
-        MainActivityMenuAdapter mainActivityMenuAdapter = new MainActivityMenuAdapter();
+
+        MainMenuItemsManager mainMenuItemsManager = new MainMenuItemsManager();
+        MainActivityMenuAdapter mainActivityMenuAdapter = new MainActivityMenuAdapter(MainActivity.this, mainMenuItemsManager.getMainMenuItems());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -117,5 +126,15 @@ public class MainActivity extends AppCompatActivity {
     public void startItemListActivity(View view) {
         Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.cart) {
+            Intent intent = new Intent(MainActivity.this, OrderViewActivity.class);
+            startActivity(intent);
+        }
+
+        return true;
     }
 }

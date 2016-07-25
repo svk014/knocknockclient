@@ -16,10 +16,10 @@ import knockknock.delivr_it.knocknock.activities.MainActivity;
 
 public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
 
-    private MainActivity context;
+    private MainActivity mainActivityInstance;
 
-    public OfferRetrievalTask(MainActivity context) {
-        this.context = context;
+    public OfferRetrievalTask(MainActivity mainActivityInstance) {
+        this.mainActivityInstance = mainActivityInstance;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
             sb.append(reader.readLine() + "\n");
             String result11 = sb.toString();
             return new JSONArray(result11);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 
@@ -45,11 +45,12 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
     @Override
     protected void onPostExecute(JSONArray offers) {
         try {
-            new OfferImageDownloaderTask(context).downloadAndStoreImages(offers);
-            Toast.makeText(context, "Done getting offers", Toast.LENGTH_SHORT).show();
+            new OfferCleanupTask(mainActivityInstance).deleteOutdatedOffers(offers);
+            new OfferImageWebToStorageTask(mainActivityInstance).downloadAndStoreImages(offers);
+            Toast.makeText(mainActivityInstance, "Done getting offers", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
-            Toast.makeText(context, "Could not get offers", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mainActivityInstance, "Could not get offers", Toast.LENGTH_SHORT).show();
         }
     }
 }
