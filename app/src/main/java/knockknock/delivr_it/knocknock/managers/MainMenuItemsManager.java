@@ -20,13 +20,13 @@ public class MainMenuItemsManager {
     }
 
     private void loadMainMenuItems() {
-        MainMenuItem mainMenuItem = new MainMenuItem("Food", "default_food_image.jpg");
+        MainMenuItem mainMenuItem = new MainMenuItem("Food", "default_food_image.jpg", "Food");
         mainMenuItems.add(mainMenuItem);
-        mainMenuItem = new MainMenuItem("Groceries", "default_grocery_image.jpg");
+        mainMenuItem = new MainMenuItem("Groceries", "default_grocery_image.jpg", "Grocery");
         mainMenuItems.add(mainMenuItem);
-        mainMenuItem = new MainMenuItem("Stationary", "default_stationary_image.jpg");
+        mainMenuItem = new MainMenuItem("Stationary", "default_stationary_image.jpg", "Stationary");
         mainMenuItems.add(mainMenuItem);
-        mainMenuItem = new MainMenuItem("Cosmetics", "default_cosmetics_image.jpg");
+        mainMenuItem = new MainMenuItem("Cosmetics", "default_cosmetics_image.jpg", "Cosmetics");
         mainMenuItems.add(mainMenuItem);
     }
 

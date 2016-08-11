@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startItemListActivity(View view) {
         Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
+        intent.putExtra("category", view.getTag().toString());
         startActivity(intent);
     }
 
@@ -132,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.cart) {
             Intent intent = new Intent(MainActivity.this, OrderViewActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.profile) {
+            Intent intent = new Intent(MainActivity.this, ProfileViewActivity.class);
             startActivity(intent);
         }
 

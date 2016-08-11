@@ -108,6 +108,7 @@
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:onClick="confirmVerifyAddressAndPlaceOrder"
                     android:gravity="center"
                     android:text="@string/confirm_order"
                     android:textColor="@android:color/white" />

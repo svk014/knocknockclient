@@ -6,36 +6,53 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import net.cachapa.expandablelayout.ExpandableLinearLayout;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import knockknock.delivr_it.knocknock.R;
 import knockknock.delivr_it.knocknock.adapters.CheckboxAdapter;
 import knockknock.delivr_it.knocknock.adapters.ItemListAdapter;
+import knockknock.delivr_it.knocknock.managers.CartStorageManager;
+import knockknock.delivr_it.knocknock.managers.ItemStorageManager;
 
 public class ItemListActivity extends AppCompatActivity {
     ExpandableLinearLayout expandableFilter;
     SwitchCompat preferenceSwitch;
     Spinner sortMethodSelector;
     View expandableFilterHeader;
+    private String category;
+    HashSet<String> checkedSections;
+    CheckboxAdapter checkboxAdapter;
+    List<String> allSections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_lists);
 
+        init();
+        inflateSectionChecks();
+        inflateSpinner();
+        inflateMainMenuItems();
+    }
+
+    private void init() {
+        category = getIntent().getExtras().getString("category");
+        allSections = ItemStorageManager.getAllSectionsForCategory(getApplicationContext(), category);
+        checkedSections = new HashSet<>(allSections);
         expandableFilter = (ExpandableLinearLayout) findViewById(R.id.expandable_filter);
         preferenceSwitch = (SwitchCompat) findViewById(R.id.preference_control_switch);
         expandableFilterHeader = findViewById(R.id.expandable_filter_header);
-        inflateSpinner();
-        inflateMainMenuItems();
-        setUpSectionChecks();
     }
 
     private void inflateSpinner() {
@@ -57,7 +74,10 @@ public class ItemListActivity extends AppCompatActivity {
 
     private void inflateMainMenuItems() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_menu);
-        ItemListAdapter itemListAdapter = new ItemListAdapter();
+        ItemListAdapter itemListAdapter =
+                new ItemListAdapter(getApplicationContext(),
+                        ItemStorageManager.getAllItemsForCategory(getApplicationContext(),
+                                category, getCheckedSections()));
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -66,13 +86,13 @@ public class ItemListActivity extends AppCompatActivity {
         recyclerView.setAdapter(itemListAdapter);
     }
 
-    private void setUpSectionChecks() {
+    private void inflateSectionChecks() {
         RecyclerView sectionsRecyclerView = (RecyclerView) findViewById(R.id.list_of_section_checkboxes);
-        CheckboxAdapter checkboxAdapter = new CheckboxAdapter();
+        checkboxAdapter = new CheckboxAdapter(allSections);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         sectionsRecyclerView.setLayoutManager(mLayoutManager);
         sectionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
         sectionsRecyclerView.setAdapter(checkboxAdapter);
     }
 
@@ -87,10 +107,52 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     public void togglePreferenceSwitch(View view) {
-        if (preferenceSwitch.isChecked()) {
-            preferenceSwitch.setText("Veg Only");
+        String text = preferenceSwitch.isChecked() ? "Veg Only" : "Veg/Non-veg";
+        preferenceSwitch.setText(text);
+    }
+
+    public List<String> getCheckedSections() {
+        return new ArrayList<>(checkedSections);
+    }
+
+    public void updateListOfChecks(View view) {
+        CheckBox checkBox = (CheckBox) view;
+        Log.d("Checked", "called");
+        if (checkBox.isChecked()) {
+            checkedSections.add(checkBox.getText().toString());
         } else {
-            preferenceSwitch.setText("Veg/Non-veg");
+            checkedSections.remove(checkBox.getText().toString());
         }
+        inflateMainMenuItems();
+    }
+
+    public void toggleStockSwitch(View view) {
+    }
+
+    public void removeItemFromCart(View view) {
+        String id = view.getTag().toString();
+        View parentView = (View) (view.getParent());
+        TextView quantityTextView = (TextView) parentView.findViewById(R.id.order_item_quantity);
+        int quantity = Integer.parseInt(quantityTextView.getText().toString());
+        if (quantity > 0) {
+            quantity--;
+            if (quantity == 0)
+                CartStorageManager.removeItemFromCart(getApplicationContext(), id);
+            else
+                CartStorageManager.storeItemInCart(getApplicationContext(), id, quantity);
+            quantityTextView.setText(quantity + "");
+        }
+    }
+
+    public void addItemToCart(View view) {
+        String id = view.getTag().toString();
+        View parentView = (View) (view.getParent());
+        TextView quantityTextView = (TextView) parentView.findViewById(R.id.order_item_quantity);
+
+        int quantity = Integer.parseInt(quantityTextView.getText().toString());
+        quantity++;
+        CartStorageManager.storeItemInCart(getApplicationContext(), id, quantity);
+        quantityTextView.setText(quantity + "");
+
     }
 }

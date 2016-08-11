@@ -6,10 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import java.util.List;
+
 import knockknock.delivr_it.knocknock.R;
+import knockknock.delivr_it.knocknock.models.Item;
 
 public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.HolderView> {
 
+
+    private List<String> sections;
+
+    public CheckboxAdapter(List<String> sections) {
+        this.sections = sections;
+    }
 
     @Override
     public HolderView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -19,12 +28,13 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.Holder
 
     @Override
     public void onBindViewHolder(HolderView holder, int position) {
-
+        holder.checkBox.setText(sections.get(position));
+        holder.checkBox.setChecked(true);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return sections.size();
     }
 
     public class HolderView extends RecyclerView.ViewHolder {

@@ -1,7 +1,5 @@
 package knockknock.delivr_it.knocknock.tasks;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 
 import com.squareup.picasso.Picasso;
@@ -11,12 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import knockknock.delivr_it.knocknock.managers.OfferStorageManager;
 import knockknock.delivr_it.knocknock.activities.MainActivity;
+import knockknock.delivr_it.knocknock.managers.FileStorageManager;
 
 public class OfferImageWebToStorageTask {
     private MainActivity mainActivity;
@@ -44,7 +39,7 @@ public class OfferImageWebToStorageTask {
                 @Override
                 public Bitmap transform(Bitmap source) {
                     try {
-                        String image_local_path = storeImageInFile(mainActivity, "offers", System.currentTimeMillis() + "", source);
+                        String image_local_path = FileStorageManager.storeImageInFileSystem(mainActivity, "offers", System.currentTimeMillis() + "", source);
                         jsonObject.put("image_local_path", image_local_path);
                     } catch (JSONException ignored) {
                     }
@@ -72,26 +67,4 @@ public class OfferImageWebToStorageTask {
 
     }
 
-    private String storeImageInFile(Context context, final String imageDir, final String imageName, Bitmap bitmap) {
-        ContextWrapper cw = new ContextWrapper(context);
-        final File directory = cw.getDir(imageDir, Context.MODE_PRIVATE);
-        final File myImageFile = new File(directory, imageName);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(myImageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            return myImageFile.getAbsolutePath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 }

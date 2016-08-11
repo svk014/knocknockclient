@@ -40,9 +40,9 @@ class MatchAndUpdateBaseDatabaseVersion extends AsyncTask<Void, Void, Integer> {
     protected Integer doInBackground(Void... voids) {
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            HttpGet httppost = new HttpGet("https://raw.githubusercontent.com/svk014/knocknockrawassets/master/base_database_version.md");
+            HttpGet httpGet = new HttpGet("https://raw.githubusercontent.com/svk014/knocknockrawassets/master/base_database_version.md");
 
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpclient.execute(httpGet);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "iso-8859-1"), 8);
             String result11 = reader.readLine();

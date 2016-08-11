@@ -45,6 +45,7 @@ public class MainActivityMenuAdapter extends RecyclerView.Adapter<MainActivityMe
         }
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         holder.imageView.setImageBitmap(bitmap);
+        holder.itemView.setTag(mainMenuItems.get(position).getCategory());
         holder.menuTitle.setText(mainMenuItems.get(position).getItemTitle());
     }
 
@@ -57,9 +58,11 @@ public class MainActivityMenuAdapter extends RecyclerView.Adapter<MainActivityMe
 
         TextView menuTitle;
         ImageView imageView;
+        View itemView;
 
         public HolderView(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             menuTitle = (TextView) itemView.findViewById(R.id.text);
             imageView = (ImageView) itemView.findViewById(R.id.image);
         }

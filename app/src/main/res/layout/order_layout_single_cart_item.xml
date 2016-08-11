@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@android:color/white"
+    tools:context=".activities.OrderViewActivity">
+
+    <ImageView
+        android:id="@+id/cart_item_image"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_food_image" />
+
+    <TextView
+        android:id="@+id/cart_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:text="Food"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/cart_item_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:layout_toRightOf="@+id/cart_item_image"
+        android:text="₹"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/add_to_cart"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/cart_item_image"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="addItemToCart"
+        android:layout_marginRight="5dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add" />
+
+    <TextView
+        android:id="@+id/order_item_quantity"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/add_to_cart"
+        android:layout_toLeftOf="@+id/add_to_cart"
+        android:layout_toStartOf="@+id/add_to_cart"
+        android:background="@drawable/gray_background"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/remove_from_cart"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/add_to_cart"
+        android:layout_toLeftOf="@+id/order_item_quantity"
+        android:layout_toStartOf="@+id/order_item_quantity"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:onClick="removeItemFromCart"
+        android:padding="7dp"
+        android:src="@drawable/remove_from_cart" />
+
+
+</RelativeLayout>

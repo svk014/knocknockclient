@@ -54,6 +54,21 @@
                 app:theme="@style/BrandedSwitch"
                 tools:ignore="HardcodedText" />
 
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/in_stock_control_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/preference_control_switch"
+                android:layout_margin="10dp"
+                android:checked="false"
+                android:onClick="toggleStockSwitch"
+                android:text="Show only in-stock"
+                android:textSize="15sp"
+                app:theme="@style/BrandedSwitch"
+                tools:ignore="HardcodedText" />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

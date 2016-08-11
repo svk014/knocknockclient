@@ -11,7 +11,7 @@
     <string name="my_profile">My Profile</string>
     <string name="close">CLOSE</string>
     <string name="item_image">item image</string>
-    <string name="place_order">PLACE ORDER</string>
+    <string name="place_order">PROCEED TO CHECKOUT</string>
     <string name="no_order_to_place">NO ITEMS TO ORDER.</string>
     <string name="address_info_name">Name</string>
     <string name="address_info_phone_number">Working phone number</string>
@@ -23,4 +23,6 @@
     <string name="standard_delivery_message">Free delivery of food within 45 minutes guaranteed.</string>
     <string name="express_delivery_message">Delivery of grocery, cosmetics and stationary within 45 minutes guaranteed.\nFor extra Price.</string>
     <string name="standard_delayed_message">Free delivery of food, grocery, cosmetics and stationary at a time convenient for you.</string>
+    <string name="save">SAVE</string>
+    <string name="view_all_orders">VIEW ALL ORDERS</string>
 </resources>
