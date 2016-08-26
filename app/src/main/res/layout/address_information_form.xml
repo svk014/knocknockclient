@@ -20,47 +20,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:cursorVisible="true"
         android:drawableLeft="@android:drawable/ic_menu_view"
         android:drawableStart="@android:drawable/ic_menu_view"
-        android:hint="@string/address_info_name" />
+        android:hint="@string/address_info_name"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:cursorVisible="true"
         android:drawableLeft="@android:drawable/ic_menu_call"
         android:drawableStart="@android:drawable/ic_menu_call"
+        android:enabled="false"
         android:hint="@string/address_info_phone_number"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/alternate_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:cursorVisible="true"
         android:drawableLeft="@android:drawable/ic_menu_call"
         android:drawableStart="@android:drawable/ic_menu_call"
         android:hint="@string/address_info_alternate_phone_number"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:cursorVisible="true"
         android:drawableLeft="@android:drawable/ic_menu_send"
         android:drawableStart="@android:drawable/ic_menu_send"
         android:hint="@string/address_info_email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:cursorVisible="true"
         android:drawableLeft="@android:drawable/ic_menu_compass"
         android:drawableStart="@android:drawable/ic_menu_compass"
         android:hint="@string/address_info_address"
-        android:maxLines="3" />
+        android:maxLines="3"
+        android:textCursorDrawable="@null" />
 </LinearLayout>

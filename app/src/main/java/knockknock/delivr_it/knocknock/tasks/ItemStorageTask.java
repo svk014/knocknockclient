@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import knockknock.delivr_it.knocknock.managers.BaseDatabaseVersionStorageManager;
 import knockknock.delivr_it.knocknock.managers.ItemStorageManager;
+import knockknock.delivr_it.knocknock.managers.UpdateVersionStorageManager;
 
 public class ItemStorageTask {
     private Context context;
@@ -27,6 +28,9 @@ public class ItemStorageTask {
             } catch (JSONException ignored) {
             }
         }
+
+        UpdateVersionStorageManager.setCurrentUpdateVersion(context, 0);
+        new ItemUpdateRetrievalTask(context).execute();
 
         if (ItemStorageManager.confirmItemsStored(context, items.length())) {
             BaseDatabaseVersionStorageManager.setCurrentDatabaseVersion(context, baseDbVersion);

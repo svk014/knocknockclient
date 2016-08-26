@@ -62,6 +62,20 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.Holder
         });
 
         holder.setIsRecyclable(false);
+        enableOutOfStockIfRequired(holder, position);
+    }
+
+    private void enableOutOfStockIfRequired(HolderView holder, int position) {
+        if (items.get(position).getIn_stock().equals("true")) {
+            holder.outOfStock.setVisibility(View.GONE);
+            holder.addButton.setClickable(true);
+            holder.removeButton.setClickable(true);
+        }
+        if (items.get(position).getIn_stock().equals("false")) {
+            holder.outOfStock.setVisibility(View.VISIBLE);
+            holder.addButton.setClickable(false);
+            holder.removeButton.setClickable(false);
+        }
     }
 
     private void addTagsToButtons(HolderView holder, int position) {
@@ -81,6 +95,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.Holder
         if (items.get(position).getVegetarian().equals("false")) {
             holder.itemVegOrNonVegTextView.setText("Non-Veg");
             holder.itemVegOrNonVegTextView.setBackgroundResource(R.drawable.red_background);
+        }
+        if (items.get(position).getVegetarian().equals("na")) {
+            holder.itemVegOrNonVegTextView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -142,6 +159,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.Holder
         ImageView addButton;
         ImageView removeButton;
         TextView itemOrderQunatity;
+        TextView outOfStock;
 
         public HolderView(View itemView) {
             super(itemView);
@@ -155,6 +173,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.Holder
             addButton = (ImageView) itemView.findViewById(R.id.add_to_cart);
             removeButton = (ImageView) itemView.findViewById(R.id.remove_from_cart);
             itemOrderQunatity = (TextView) itemView.findViewById(R.id.order_item_quantity);
+            outOfStock = (TextView) itemView.findViewById(R.id.out_of_stock);
         }
     }
 }

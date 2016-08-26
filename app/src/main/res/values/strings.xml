@@ -3,7 +3,7 @@
     <string name="search">Search Items</string>
     <string name="app_label">KnocKnock</string>
     <string name="search_hint">Search</string>
-    <string name="search_knocknock">Search KnocKnock</string>
+    <string name="search_knocknock">Search food,groceries,cosmetics...</string>
     <string name="explore">EXPLORE</string>
     <string name="offers">OFFERS</string>
     <string name="notifications">Notifications</string>
@@ -24,5 +24,11 @@
     <string name="express_delivery_message">Delivery of grocery, cosmetics and stationary within 45 minutes guaranteed.\nFor extra Price.</string>
     <string name="standard_delayed_message">Free delivery of food, grocery, cosmetics and stationary at a time convenient for you.</string>
     <string name="save">SAVE</string>
-    <string name="view_all_orders">VIEW ALL ORDERS</string>
+    <string name="view_all_orders">ORDER HISTORY</string>
+    <string name="select_delivery_mode">DELIVERY MODE</string>
+    <string name="request_verification_code">REQUEST VERIFICATION CODE</string>
+    <string name="_6_digit_verification_code">6 digit verification code</string>
+    <string name="verify">VERIFY</string>
+    <string name="your_cart">YOUR CART</string>
+    <string name="register">REGISTER</string>
 </resources>

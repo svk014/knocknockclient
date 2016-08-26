@@ -5,10 +5,13 @@ public class DeliveryModeInformation {
     public String deliveryDay;
     public String deliveryTime;
 
-    public DeliveryModeInformation(String deliveryType, String deliveryDay, String deliveryTime){
+    public DeliveryModeInformation(String deliveryType, String deliveryDay, String deliveryTime) {
         this.deliveryType = deliveryType;
         this.deliveryDay = deliveryDay;
         this.deliveryTime = deliveryTime;
     }
 
+    public boolean areFieldsValid() {
+        return !(deliveryType.isEmpty());
+    }
 }

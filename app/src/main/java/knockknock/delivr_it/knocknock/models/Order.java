@@ -13,6 +13,7 @@ public class Order extends RealmObject {
     private String order_time;
     private String orders;
     private String total;
+    private String estimated_delivery;
 
     public String getOrder_id() {
         return order_id;
@@ -76,5 +77,13 @@ public class Order extends RealmObject {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getEstimated_delivery() {
+        return estimated_delivery;
+    }
+
+    public void setEstimated_delivery(String estimated_delivery) {
+        this.estimated_delivery = estimated_delivery;
     }
 }

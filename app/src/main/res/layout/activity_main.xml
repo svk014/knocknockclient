@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"
-            android:padding="10dp"
+            android:clickable="true"
             android:paddingBottom="0dp"
             android:visibility="invisible">
 
@@ -81,13 +81,13 @@
                 android:onClick="closeCustomSearchView" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/search_items_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="60dp"
                 android:scrollbars="vertical" />
 
         </RelativeLayout>

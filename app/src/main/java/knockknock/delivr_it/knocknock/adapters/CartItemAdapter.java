@@ -1,5 +1,6 @@
 package knockknock.delivr_it.knocknock.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,16 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.util.List;
 
 import knockknock.delivr_it.knocknock.R;
-import knockknock.delivr_it.knocknock.activities.OrderViewActivity;
+import knockknock.delivr_it.knocknock.managers.ItemStorageManager;
 import knockknock.delivr_it.knocknock.models.CartItem;
 
 public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHolder> {
+    private Context context;
     private List<CartItem> cartItems;
 
-    public CartItemAdapter(List<CartItem> cartItems) {
+    public CartItemAdapter(Context context, List<CartItem> cartItems) {
+        this.context = context;
         this.cartItems = cartItems;
     }
 
@@ -36,12 +42,27 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (position == getItemCount() - 1) {
+            InvoiceViewHolder invoiceViewHolder = (InvoiceViewHolder) holder;
+            invoiceViewHolder.totalCostWithoutDeliveryCharge.setText("₹ " + calculateTotalPrice());
             return;
         }
         CartItemViewHolder item = (CartItemViewHolder) holder;
-        item.cartItemName.setText("ABCD");
+        String itemId = cartItems.get(position).getItemId();
+
+        setItemName(item, itemId);
+        setItemImage(item, itemId);
         addTagsToButtons(item, position);
-        setItemOrderQuantity(item, position);
+        setItemOrderQuantityAndPrice(item, position, itemId);
+    }
+
+    private void setItemImage(CartItemViewHolder item, String itemId) {
+        String imageFilePath = ItemStorageManager.getImageForId(context, itemId);
+        Picasso.with(context).load(new File(imageFilePath)).placeholder(R.drawable.default_food_image)
+                .into(item.cartItemImage);
+    }
+
+    public void setItemName(CartItemViewHolder item, String itemId) {
+        item.cartItemName.setText(ItemStorageManager.getNameForId(context, itemId));
     }
 
     private void addTagsToButtons(CartItemViewHolder holder, int position) {
@@ -49,9 +70,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         holder.removeButton.setTag(cartItems.get(position).getItemId());
     }
 
-    private void setItemOrderQuantity(CartItemViewHolder holder, int position) {
+    private void setItemOrderQuantityAndPrice(CartItemViewHolder holder, int position, String itemId) {
         holder.itemOrderQunatity.setText("" + cartItems.get(position).getQuantity());
-        holder.cartItemPrice.setText("₹ " + cartItems.get(position).getQuantity());
+        int quantity = cartItems.get(position).getQuantity();
+        String price = ItemStorageManager.getPriceForId(context, itemId);
+        int totalPrice = Integer.parseInt(price) * quantity;
+        holder.cartItemPrice.setText("₹ " + totalPrice);
     }
 
     @Override
@@ -62,6 +86,19 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     @Override
     public int getItemViewType(int position) {
         return position == getItemCount() - 1 ? 1 : 0;
+    }
+
+    public int calculateTotalPrice() {
+        int totalPrice = 0;
+        for (CartItem item : cartItems) {
+            int quantity = item.getQuantity();
+            String itemId = item.getItemId();
+            String price = ItemStorageManager.getPriceForId(context, itemId);
+
+            totalPrice += quantity * Integer.parseInt(price);
+
+        }
+        return totalPrice;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -92,8 +129,11 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
 
     public class InvoiceViewHolder extends ViewHolder {
 
+        TextView totalCostWithoutDeliveryCharge;
+
         public InvoiceViewHolder(View view) {
             super(view);
+            totalCostWithoutDeliveryCharge = (TextView) view.findViewById(R.id.order_total_price_without_delivery_charge);
         }
     }
 }

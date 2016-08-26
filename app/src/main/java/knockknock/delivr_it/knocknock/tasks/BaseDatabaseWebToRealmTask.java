@@ -2,6 +2,7 @@ package knockknock.delivr_it.knocknock.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,6 +12,7 @@ import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 
 public class BaseDatabaseWebToRealmTask extends AsyncTask<Void, Void, JSONArray> {
 
@@ -27,6 +29,7 @@ public class BaseDatabaseWebToRealmTask extends AsyncTask<Void, Void, JSONArray>
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpGet httppost = new HttpGet("https://raw.githubusercontent.com/svk014/knocknockrawassets/master/base_database.txt");
+//            HttpGet httppost = new HttpGet("http://knock-knock-server-0.herokuapp.com/baseDb");
 
             HttpResponse response = httpclient.execute(httppost);
 
@@ -39,7 +42,7 @@ public class BaseDatabaseWebToRealmTask extends AsyncTask<Void, Void, JSONArray>
 
             return new JSONArray(everything.toString());
         } catch (Exception ignored) {
-
+            Log.d("ignored", ignored.toString());
         }
 
         return null;

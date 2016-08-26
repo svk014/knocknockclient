@@ -45,11 +45,37 @@ public class CartStorageManager {
 
     public static List<CartItem> getItemsInCart(Context context) {
         Realm realm = Realm.getInstance(context);
+        cleanRedundantOrders(context);
         return realm.where(CartItem.class).findAll();
+    }
+
+    private static void cleanRedundantOrders(Context context) {
+        Realm realm = Realm.getInstance(context);
+        long orderIdentifierClient = getOrderIdentifier(context);
+        boolean orderAleadyExists = OrderStorageManager.orderExistsForClientOrderIdentifier(
+                context,
+                orderIdentifierClient);
+        if (orderAleadyExists) {
+            removeAllFromCart(context);
+        }
+    }
+
+    private static void removeAllFromCart(Context context) {
+        Realm realm = Realm.getInstance(context);
+
+        realm.beginTransaction();
+
+        RealmResults<CartItem> cartItemToDelete = realm.where(CartItem.class).findAll();
+        cartItemToDelete.clear();
+
+        realm.commitTransaction();
     }
 
     public static long getOrderIdentifier(Context context) {
         Realm realm = Realm.getInstance(context);
-        return realm.where(CartItem.class).max("orderIdentifier").longValue();
+        Number orderIdentifier = realm.where(CartItem.class).max("orderIdentifier");
+        if (orderIdentifier == null)
+            return 0;
+        return orderIdentifier.longValue();
     }
 }

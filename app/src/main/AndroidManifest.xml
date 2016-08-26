@@ -8,8 +8,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".activities.KnocKnock"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_knocknock"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
@@ -18,21 +19,54 @@
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name=".activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.RegistrationActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.ItemListActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
 
-        </activity>
-        <activity android:name=".activities.OrderViewActivity" />
-        <activity android:name=".activities.ProfileViewActivity" />
-        <activity android:name=".activities.PlacedOrdersActivity" />
+        <activity
+            android:name=".activities.OrderViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ProfileViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PlacedOrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.NotificationDisplayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.OrderProcessingActivity"
+            android:screenOrientation="portrait" />
 
+        <service
+            android:name=".services.NotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

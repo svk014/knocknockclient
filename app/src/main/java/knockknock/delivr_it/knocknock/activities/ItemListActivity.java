@@ -27,7 +27,8 @@ import knockknock.delivr_it.knocknock.managers.ItemStorageManager;
 
 public class ItemListActivity extends AppCompatActivity {
     ExpandableLinearLayout expandableFilter;
-    SwitchCompat preferenceSwitch;
+    SwitchCompat vegetarianPreferenceSwitch;
+    SwitchCompat inStockControlSwitch;
     Spinner sortMethodSelector;
     View expandableFilterHeader;
     private String category;
@@ -42,7 +43,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         init();
         inflateSectionChecks();
-        inflateSpinner();
+        //    inflateSpinner();
         inflateMainMenuItems();
     }
 
@@ -51,8 +52,9 @@ public class ItemListActivity extends AppCompatActivity {
         allSections = ItemStorageManager.getAllSectionsForCategory(getApplicationContext(), category);
         checkedSections = new HashSet<>(allSections);
         expandableFilter = (ExpandableLinearLayout) findViewById(R.id.expandable_filter);
-        preferenceSwitch = (SwitchCompat) findViewById(R.id.preference_control_switch);
+        vegetarianPreferenceSwitch = (SwitchCompat) findViewById(R.id.preference_control_switch);
         expandableFilterHeader = findViewById(R.id.expandable_filter_header);
+        inStockControlSwitch = (SwitchCompat) findViewById(R.id.in_stock_control_switch);
     }
 
     private void inflateSpinner() {
@@ -77,7 +79,8 @@ public class ItemListActivity extends AppCompatActivity {
         ItemListAdapter itemListAdapter =
                 new ItemListAdapter(getApplicationContext(),
                         ItemStorageManager.getAllItemsForCategory(getApplicationContext(),
-                                category, getCheckedSections()));
+                                category, getCheckedSections(), vegetarianPreferenceSwitch.isChecked() + "",
+                                inStockControlSwitch.isChecked() + ""));
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -107,8 +110,9 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     public void togglePreferenceSwitch(View view) {
-        String text = preferenceSwitch.isChecked() ? "Veg Only" : "Veg/Non-veg";
-        preferenceSwitch.setText(text);
+        String text = vegetarianPreferenceSwitch.isChecked() ? "Veg Only" : "Veg/Non-veg";
+        vegetarianPreferenceSwitch.setText(text);
+        inflateMainMenuItems();
     }
 
     public List<String> getCheckedSections() {
@@ -127,6 +131,7 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     public void toggleStockSwitch(View view) {
+        inflateMainMenuItems();
     }
 
     public void removeItemFromCart(View view) {

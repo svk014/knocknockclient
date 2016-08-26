@@ -37,7 +37,7 @@ public class ItemStorageManager {
         return allItems.size() == count;
     }
 
-    public static List<Item> getAllItemsForCategory(Context context, String category, List<String> sections) {
+    public static List<Item> getAllItemsForCategory(Context context, String category, List<String> sections, String vegOnly, String inStockOnly) {
         Realm realm = Realm.getInstance(context);
         RealmQuery<Item> itemsQuery = realm.where(Item.class).equalTo("category", category).beginGroup();
 
@@ -45,7 +45,10 @@ public class ItemStorageManager {
             itemsQuery.equalTo("section", section).or();
         }
 
-        return itemsQuery.isEmpty("id").endGroup().findAll();
+        return itemsQuery.isEmpty("id").endGroup().beginGroup().equalTo("vegetarian", vegOnly)
+                .or().equalTo("vegetarian", "na").or().equalTo("vegetarian", "true").endGroup()
+                .beginGroup().equalTo("in_stock", inStockOnly).or().equalTo("in_stock", "true")
+                .endGroup().findAll();
     }
 
     public static List<String> getAllSectionsForCategory(Context context, String category) {
@@ -63,5 +66,41 @@ public class ItemStorageManager {
         Realm realm = Realm.getInstance(context);
 
         return realm.where(Item.class).equalTo("id", itemId).findAll().first().getPrice();
+    }
+
+    public static List<Item> getAllItemsFor(Context context, String input) {
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Item.class)
+                .contains("item_name", input, false)
+                .or().contains("section", input, false)
+                .or().contains("category", input, false)
+                .findAll();
+    }
+
+    public static String getNameForId(Context context, String itemId) {
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Item.class).equalTo("id", itemId).findAll().first().getItem_name();
+    }
+
+    public static String getImageForId(Context context, String itemId) {
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Item.class).equalTo("id", itemId).findFirst().getImage_local_path();
+    }
+
+    public static void deleteItemById(Context context, String itemId) {
+        Realm realm = Realm.getInstance(context);
+        RealmResults<Item> itemsToDelete = realm.where(Item.class).equalTo("id", itemId).findAll();
+
+        realm.beginTransaction();
+        itemsToDelete.clear();
+        realm.commitTransaction();
+    }
+
+    public static String getStockStatusForId(Context context, String itemId) {
+        Realm realm = Realm.getInstance(context);
+        Item id = realm.where(Item.class).equalTo("id", itemId).findFirst();
+        if (id == null)
+            return "false";
+        return id.getIn_stock();
     }
 }

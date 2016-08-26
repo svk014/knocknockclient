@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:gravity="center"
         android:text="@string/no_order_to_place"
         android:textSize="20sp" />
 

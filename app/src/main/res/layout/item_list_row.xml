@@ -10,7 +10,6 @@
     android:layout_marginStart="5dp"
     android:layout_marginTop="5dp"
     android:background="@color/colorAccent"
-    tools:context=".activities.ItemListActivity"
     android:orientation="vertical">
 
 
@@ -27,6 +26,16 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/out_of_stock"
+                android:text="OUT OF STOCK"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/item_name"

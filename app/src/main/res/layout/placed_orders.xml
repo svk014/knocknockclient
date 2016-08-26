@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical|end"
+        android:padding="3dp"
+        android:text="YOUR ORDERS"
+        android:textColor="@android:color/white" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/placed_orders_list"
         android:layout_width="match_parent"

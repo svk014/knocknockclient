@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/cart_header"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="@string/register"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/registration_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:drawableStart="@android:drawable/ic_menu_call"
+        android:hint="@string/address_info_phone_number"
+        android:inputType="number"
+        android:maxLength="10" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#e57373">
+
+        <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit_request"
+            style="@style/SpinKitView.Wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/save_address_information"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="requestVerificationCode"
+            android:text="@string/request_verification_code"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <net.cachapa.expandablelayout.ExpandableLinearLayout
+        android:id="@+id/verification_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="0"
+        app:el_expanded="true">
+
+        <EditText
+            android:id="@+id/verification_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:drawableLeft="@android:drawable/ic_menu_send"
+            android:drawableStart="@android:drawable/ic_menu_send"
+            android:hint="@string/_6_digit_verification_code"
+            android:inputType="number"
+            android:maxLength="6"
+            app:layout_expandable="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#558b2f"
+            app:layout_expandable="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="verifyCode"
+                android:text="@string/verify"
+                android:textColor="@android:color/white" />
+
+            <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/spin_kit_verify"
+                style="@style/SpinKitView.Wave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:visibility="gone"
+                app:SpinKit_Color="@color/colorAccent" />
+        </RelativeLayout>
+
+    </net.cachapa.expandablelayout.ExpandableLinearLayout>
+
+</LinearLayout>

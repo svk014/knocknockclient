@@ -26,10 +26,15 @@ public class PlacedOrderListAdapter extends RecyclerView.Adapter<PlacedOrderList
 
     @Override
     public void onBindViewHolder(HolderView holder, int position) {
-        holder.orderId.setText("Order id: " + orders.get(position).getOrder_id());
+        holder.orderId.setText("Order # " + orders.get(position).getOrder_id());
         holder.timeOfOrder.setText("Placed on\n" + orders.get(position).getOrder_time());
         holder.orderStatus.setText(orders.get(position).getOrder_status());
-        holder.totalCost.setText(orders.get(position).getTotal());
+        holder.itemView.setTag(orders.get(position).getOrder_id());
+        int totalPrice = Integer.parseInt(orders.get(position).getTotal());
+        String priceText = "Price to be confirmed.";
+        if (totalPrice > 0)
+            priceText = "Total : Rs. " + totalPrice + "";
+        holder.totalCost.setText(priceText);
     }
 
     @Override
@@ -42,9 +47,11 @@ public class PlacedOrderListAdapter extends RecyclerView.Adapter<PlacedOrderList
         TextView totalCost;
         TextView timeOfOrder;
         TextView orderStatus;
+        View itemView;
 
         public HolderView(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             orderId = (TextView) itemView.findViewById(R.id.order_id);
             totalCost = (TextView) itemView.findViewById(R.id.total_cost);
             timeOfOrder = (TextView) itemView.findViewById(R.id.order_date_time);

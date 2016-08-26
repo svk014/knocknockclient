@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,11 +16,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:padding="3dp"
+                android:text="@string/select_delivery_mode"
+                android:textColor="@android:color/white" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#ef5350"
                 android:padding="5dp">
 
                 <ToggleButton
@@ -98,20 +109,34 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary">
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:onClick="confirmVerifyAddressAndPlaceOrder"
                     android:gravity="center"
+                    android:onClick="confirmVerifyAddressAndPlaceOrder"
                     android:text="@string/confirm_order"
                     android:textColor="@android:color/white" />
+
+                <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/spin_kit"
+                    style="@style/SpinKitView.Wave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:visibility="gone"
+                    app:SpinKit_Color="@color/colorAccent" />
 
             </RelativeLayout>
 

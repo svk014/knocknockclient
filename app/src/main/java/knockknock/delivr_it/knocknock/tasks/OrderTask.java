@@ -1,8 +1,7 @@
 package knockknock.delivr_it.knocknock.tasks;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -19,27 +18,28 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import knockknock.delivr_it.knocknock.activities.OrderViewActivity;
 import knockknock.delivr_it.knocknock.managers.OrderStorageManager;
 
 public class OrderTask {
 
-    private Context context;
+    private Activity activity;
 
-    public OrderTask(Context context) {
-        this.context = context;
+    public OrderTask(Activity activity) {
+        this.activity = activity;
     }
 
     public void placeOrder(JSONObject orderJson) {
-        new OrderAsyncTask(context, orderJson.toString()).execute();
+        new OrderAsyncTask(activity, orderJson.toString()).execute();
     }
 
     public class OrderAsyncTask extends AsyncTask<Void, Void, String> {
 
-        private Context context;
+        private Activity activity;
         private String orderJson;
 
-        OrderAsyncTask(Context context, String orderJson) {
-            this.context = context;
+        OrderAsyncTask(Activity activity, String orderJson) {
+            this.activity = activity;
             this.orderJson = orderJson;
         }
 
@@ -47,10 +47,12 @@ public class OrderTask {
         protected String doInBackground(Void... voids) {
             try {
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://10.133.127.65:5000/order/newOrder");
+                HttpPost httpPost = new HttpPost("http://knock-knock-server-0.herokuapp.com/order/newOrder");
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
                 nameValuePairs.add(new BasicNameValuePair("order", orderJson));
+
+                showLoadingAnimation();
 
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -68,13 +70,27 @@ public class OrderTask {
             return null;
         }
 
+        private void showLoadingAnimation() {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ((OrderViewActivity) activity).startLoadSpinner();
+                }
+            });
+        }
+
         @Override
         protected void onPostExecute(String response) {
-            if (!response.equals("order previously placed")) {
+            if (response == null || response.equals("order previously placed")) {
+                ((OrderViewActivity) activity).stopLoadSpinner();
+                ((OrderViewActivity) activity).toastFailedToPlaceOrder();
+            } else {
 
                 try {
                     JSONObject placedOrder = new JSONObject(response);
-                    OrderStorageManager.storeOrder(context, placedOrder);
+                    OrderStorageManager.storeOrder(activity, placedOrder);
+                    ((OrderViewActivity) activity).sendNotification("Order #" + placedOrder.getString("order_id"));
+                    activity.finish();
                 } catch (JSONException ignored) {
                 }
             }

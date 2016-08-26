@@ -1,6 +1,7 @@
 package knockknock.delivr_it.knocknock.tasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -26,7 +27,7 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
     protected JSONArray doInBackground(Void... voids) {
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            HttpGet httppost = new HttpGet("https://knock-knock-server-0.herokuapp.com/offer/all");
+            HttpGet httppost = new HttpGet("http://knock-knock-server-0.herokuapp.com/offer/all");
 
             HttpResponse response = httpclient.execute(httppost);
 
@@ -36,7 +37,7 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
             String result11 = sb.toString();
             return new JSONArray(result11);
         } catch (Exception ignored) {
-
+            Log.d("ignored", ignored.toString());
         }
 
         return null;
@@ -48,6 +49,7 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
             new OfferCleanupTask(mainActivityInstance).deleteOutdatedOffers(offers);
             new OfferImageWebToStorageTask(mainActivityInstance).downloadAndStoreImages(offers);
             Toast.makeText(mainActivityInstance, "Done getting offers", Toast.LENGTH_SHORT).show();
+            new ItemUpdateRetrievalTask(mainActivityInstance).execute();
 
         } catch (Exception e) {
             Toast.makeText(mainActivityInstance, "Could not get offers", Toast.LENGTH_SHORT).show();

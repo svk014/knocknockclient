@@ -12,18 +12,38 @@
         android:text="@string/standard_delayed_message"
         android:textColor="@android:color/white" />
 
-    <picker.ugurtekbas.com.Picker.Picker
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/amPicker"
+
+    <picker.ugurtekbas.com.Picker.Picker xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/delivery_time_picker"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
+        app:clockColor="@android:color/white"
+        app:dialRadius="20dp"
         app:hourFormat="true"
         app:textColor="@android:color/white"
-        app:trackSize="10dp"
-        app:dialRadius="20dp"
-        app:clockColor="@android:color/white"
-        />
+        app:trackSize="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/red_outline">
+
+            <Spinner
+                android:id="@+id/delivery_day_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 </LinearLayout>

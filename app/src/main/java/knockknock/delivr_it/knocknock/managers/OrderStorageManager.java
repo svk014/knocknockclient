@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import knockknock.delivr_it.knocknock.models.Order;
 
 public class OrderStorageManager {
@@ -20,6 +21,18 @@ public class OrderStorageManager {
 
     public static List<Order> getAllOrders(Context context) {
         Realm realm = Realm.getInstance(context);
-        return realm.where(Order.class).findAll();
+        return realm.where(Order.class).findAllSorted("order_id", false);
+    }
+
+
+    public static boolean orderExistsForClientOrderIdentifier(Context context, long orderIdentifierClient) {
+        Realm realm = Realm.getInstance(context);
+        RealmResults<Order> orders = realm.where(Order.class).equalTo("order_identifier_client", orderIdentifierClient + "").findAll();
+        return orders.size() != 0;
+    }
+
+    public static Order getOrderForId(Context context, String orderId) {
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Order.class).equalTo("order_id", orderId).findAll().first();
     }
 }

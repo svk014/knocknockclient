@@ -27,6 +27,7 @@
             android:layout_height="50dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:onClick="saveDeliveryInformation"
             android:gravity="center"
             android:text="@string/save"
             android:textColor="@android:color/white" />

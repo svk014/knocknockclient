@@ -7,13 +7,25 @@
     android:orientation="vertical"
     tools:context=".activities.OrderViewActivity">
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cart_items"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_above="@+id/expandable_container"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/cart_header"
         android:background="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/cart_header"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical|end"
+        android:padding="3dp"
+        android:text="@string/your_cart"
+        android:textColor="@android:color/white" />
 
     <net.cachapa.expandablelayout.ExpandableLinearLayout
         android:id="@+id/expandable_container"

@@ -18,6 +18,7 @@ public class OfferStorageManager {
         Realm realm = Realm.getInstance(context);
         realm.beginTransaction();
         Offer offer = realm.createObjectFromJson(Offer.class, offerJSON);
+        realm.copyToRealmOrUpdate(offer);
         realm.commitTransaction();
     }
 
@@ -37,7 +38,7 @@ public class OfferStorageManager {
         int i = 0;
         RealmQuery<Offer> where = realm.where(Offer.class);
         for (; i < offers.length() - 1; i++) {
-            where.notEqualTo("id", offers.getJSONObject(i).getString("id")).or();
+            where.notEqualTo("id", offers.getJSONObject(i).getString("id"));
         }
         RealmResults<Offer> itemsToDelete = where.notEqualTo("id", offers.getJSONObject(i).getString("id")).findAll();
 
