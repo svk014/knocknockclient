@@ -19,6 +19,7 @@ public class ItemStorageTask {
     }
 
     public void store(JSONArray items, int baseDbVersion) {
+        clearOldEntriesInDb();
 
         for (int i = 0; i < items.length(); i++) {
             try {
@@ -35,6 +36,10 @@ public class ItemStorageTask {
         if (ItemStorageManager.confirmItemsStored(context, items.length())) {
             BaseDatabaseVersionStorageManager.setCurrentDatabaseVersion(context, baseDbVersion);
         }
+    }
+
+    private void clearOldEntriesInDb() {
+        ItemStorageManager.deleteAllItems(context);
     }
 
 }

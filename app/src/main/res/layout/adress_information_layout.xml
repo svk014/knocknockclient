@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".activities.ProfileViewActivity">
+    tools:mainActivity=".activities.ProfileViewActivity">
 
     <include
         layout="@layout/address_information_form"

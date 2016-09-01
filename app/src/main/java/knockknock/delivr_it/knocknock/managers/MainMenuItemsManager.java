@@ -28,6 +28,10 @@ public class MainMenuItemsManager {
         mainMenuItems.add(mainMenuItem);
         mainMenuItem = new MainMenuItem("Cosmetics", "default_cosmetics_image.jpg", "Cosmetics");
         mainMenuItems.add(mainMenuItem);
+//        mainMenuItem = new MainMenuItem("Contact Us", "default_contact_us_image.jpg", "Contact Us");
+//        mainMenuItems.add(mainMenuItem);
+        mainMenuItem = new MainMenuItem("About KnocKnock", "default_about_us_image.jpg", "About Us");
+        mainMenuItems.add(mainMenuItem);
     }
 
 }

@@ -13,12 +13,19 @@ import org.json.JSONArray;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import knockknock.delivr_it.knocknock.activities.ItemListActivity;
+
 public class ItemUpdateRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
 
+    private ItemListActivity itemListActivity;
     private Context context;
 
     public ItemUpdateRetrievalTask(Context context) {
         this.context = context;
+    }
+
+    public ItemUpdateRetrievalTask(ItemListActivity itemListActivity) {
+        this.itemListActivity = itemListActivity;
     }
 
     @Override
@@ -42,12 +49,13 @@ public class ItemUpdateRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
 
     @Override
     protected void onPostExecute(JSONArray itemUpdates) {
+        Context localContext = itemListActivity != null ? itemListActivity : context;
         try {
-            new ItemUpdateWebToStorageTask(context).updateItems(itemUpdates);
-            Toast.makeText(context, "Done getting updates", Toast.LENGTH_SHORT).show();
+            new ItemUpdateWebToStorageTask(localContext, itemListActivity).updateItems(itemUpdates);
+            Toast.makeText(localContext, "Done getting updates", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
-            Toast.makeText(context, "Could not get updates", Toast.LENGTH_SHORT).show();
+            Toast.makeText(localContext, "Could not get updates", Toast.LENGTH_SHORT).show();
         }
     }
 }

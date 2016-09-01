@@ -71,10 +71,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     }
 
     private void setItemOrderQuantityAndPrice(CartItemViewHolder holder, int position, String itemId) {
-        holder.itemOrderQunatity.setText("" + cartItems.get(position).getQuantity());
+        holder.itemOrderQuantity.setText("" + cartItems.get(position).getQuantity());
         int quantity = cartItems.get(position).getQuantity();
-        String price = ItemStorageManager.getPriceForId(context, itemId);
-        int totalPrice = Integer.parseInt(price) * quantity;
+        String priceWithoutDiscount = ItemStorageManager.getPriceForId(context, itemId);
+        String discount = ItemStorageManager.getDiscountForId(context, itemId);
+        int priceAfterDiscount = (int) (Integer.parseInt(priceWithoutDiscount) * (1 - Double.parseDouble(discount) / 100.0));
+        int totalPrice = priceAfterDiscount * quantity;
         holder.cartItemPrice.setText("₹ " + totalPrice);
     }
 
@@ -93,9 +95,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         for (CartItem item : cartItems) {
             int quantity = item.getQuantity();
             String itemId = item.getItemId();
-            String price = ItemStorageManager.getPriceForId(context, itemId);
 
-            totalPrice += quantity * Integer.parseInt(price);
+            String priceWithoutDiscount = ItemStorageManager.getPriceForId(context, itemId);
+            String discount = ItemStorageManager.getDiscountForId(context, itemId);
+            int priceAfterDiscount = (int) (Integer.parseInt(priceWithoutDiscount) * (1 - Double.parseDouble(discount) / 100.0));
+
+            totalPrice += quantity * priceAfterDiscount;
 
         }
         return totalPrice;
@@ -114,7 +119,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         ImageView cartItemImage;
         TextView cartItemPrice;
         TextView cartItemName;
-        TextView itemOrderQunatity;
+        TextView itemOrderQuantity;
 
         public CartItemViewHolder(View view) {
             super(view);
@@ -123,7 +128,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
             cartItemPrice = (TextView) view.findViewById(R.id.cart_item_total_price);
             addButton = (ImageView) itemView.findViewById(R.id.add_to_cart);
             removeButton = (ImageView) itemView.findViewById(R.id.remove_from_cart);
-            itemOrderQunatity = (TextView) itemView.findViewById(R.id.order_item_quantity);
+            itemOrderQuantity = (TextView) itemView.findViewById(R.id.order_item_quantity);
         }
     }
 

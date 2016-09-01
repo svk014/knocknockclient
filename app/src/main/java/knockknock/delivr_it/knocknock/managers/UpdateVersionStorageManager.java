@@ -4,7 +4,6 @@ import android.content.Context;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import knockknock.delivr_it.knocknock.models.BaseDatabaseVersion;
 import knockknock.delivr_it.knocknock.models.UpdateVersion;
 
 public class UpdateVersionStorageManager {

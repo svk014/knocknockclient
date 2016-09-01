@@ -17,7 +17,7 @@ public class FileStorageManager {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(myImageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, fos);
             return myImageFile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();

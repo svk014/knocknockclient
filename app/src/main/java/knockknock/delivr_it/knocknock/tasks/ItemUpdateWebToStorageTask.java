@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import knockknock.delivr_it.knocknock.activities.ItemListActivity;
 import knockknock.delivr_it.knocknock.activities.MainActivity;
 import knockknock.delivr_it.knocknock.managers.CartStorageManager;
 import knockknock.delivr_it.knocknock.managers.FileStorageManager;
@@ -20,12 +21,15 @@ import knockknock.delivr_it.knocknock.models.Order;
 
 public class ItemUpdateWebToStorageTask {
     private Context context;
+    private ItemListActivity itemListActivity;
 
-    public ItemUpdateWebToStorageTask(Context context) {
+    public ItemUpdateWebToStorageTask(Context context, ItemListActivity itemListActivity) {
         this.context = context;
+        this.itemListActivity = itemListActivity;
     }
 
     public void updateItems(JSONArray itemUpdates) throws Exception {
+        int updateVersionPreUpdate = UpdateVersionStorageManager.getCurrentUpdateVersion(context);
 
         for (int i = 0; i < itemUpdates.length(); i++) {
             final JSONObject jsonObject = itemUpdates.getJSONObject(i);
@@ -38,7 +42,7 @@ public class ItemUpdateWebToStorageTask {
             }
 
             String update_type = jsonObject.getString("update_type");
-            if (update_type.equals("update") || update_type.equals("new")) {
+            if (update_type.equals("update") || update_type.equals("create")) {
                 updateOrCreate(jsonObject);
             }
             if (update_type.equals("delete")) {
@@ -48,6 +52,15 @@ public class ItemUpdateWebToStorageTask {
             UpdateVersionStorageManager.setCurrentUpdateVersion(context, Integer.parseInt(id));
 
         }
+
+        int updateVersionPostUpdate = UpdateVersionStorageManager.getCurrentUpdateVersion(context);
+
+        updateUIIfNecessary(updateVersionPreUpdate, updateVersionPostUpdate);
+    }
+
+    public void updateUIIfNecessary(int updateVersionPreUpdate, int updateVersionPostUpdate) {
+        if (itemListActivity != null && updateVersionPostUpdate > updateVersionPreUpdate)
+            itemListActivity.inflateMainMenuItems();
     }
 
     private void delete(JSONObject jsonObject) throws JSONException {

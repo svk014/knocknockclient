@@ -24,6 +24,7 @@ import knockknock.delivr_it.knocknock.adapters.CheckboxAdapter;
 import knockknock.delivr_it.knocknock.adapters.ItemListAdapter;
 import knockknock.delivr_it.knocknock.managers.CartStorageManager;
 import knockknock.delivr_it.knocknock.managers.ItemStorageManager;
+import knockknock.delivr_it.knocknock.tasks.ItemUpdateRetrievalTask;
 
 public class ItemListActivity extends AppCompatActivity {
     ExpandableLinearLayout expandableFilter;
@@ -45,6 +46,12 @@ public class ItemListActivity extends AppCompatActivity {
         inflateSectionChecks();
         //    inflateSpinner();
         inflateMainMenuItems();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new ItemUpdateRetrievalTask(this).execute();
     }
 
     private void init() {
@@ -74,7 +81,7 @@ public class ItemListActivity extends AppCompatActivity {
         sortMethodSelector.setAdapter(dataAdapter);
     }
 
-    private void inflateMainMenuItems() {
+    public void inflateMainMenuItems() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_menu);
         ItemListAdapter itemListAdapter =
                 new ItemListAdapter(getApplicationContext(),

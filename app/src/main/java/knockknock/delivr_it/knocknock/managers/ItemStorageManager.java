@@ -68,6 +68,12 @@ public class ItemStorageManager {
         return realm.where(Item.class).equalTo("id", itemId).findAll().first().getPrice();
     }
 
+    public static String getDiscountForId(Context context, String itemId) {
+        Realm realm = Realm.getInstance(context);
+
+        return realm.where(Item.class).equalTo("id", itemId).findFirst().getDiscount();
+    }
+
     public static List<Item> getAllItemsFor(Context context, String input) {
         Realm realm = Realm.getInstance(context);
         return realm.where(Item.class)
@@ -79,7 +85,10 @@ public class ItemStorageManager {
 
     public static String getNameForId(Context context, String itemId) {
         Realm realm = Realm.getInstance(context);
-        return realm.where(Item.class).equalTo("id", itemId).findAll().first().getItem_name();
+        Item item = realm.where(Item.class).equalTo("id", itemId).findFirst();
+        if (item == null)
+            return "*Item not found*";
+        return item.getItem_name();
     }
 
     public static String getImageForId(Context context, String itemId) {
@@ -102,5 +111,15 @@ public class ItemStorageManager {
         if (id == null)
             return "false";
         return id.getIn_stock();
+    }
+
+    public static void deleteAllItems(Context context) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmResults<Item> items = realm.where(Item.class).findAll();
+        realm.beginTransaction();
+        items.clear();
+        realm.commitTransaction();
+
     }
 }

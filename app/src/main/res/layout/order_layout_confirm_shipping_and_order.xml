@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".activities.OrderViewActivity">
+    tools:mainActivity=".activities.OrderViewActivity">
 
     <ScrollView
         android:layout_width="match_parent"

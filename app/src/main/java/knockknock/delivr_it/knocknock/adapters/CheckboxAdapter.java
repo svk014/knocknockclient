@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import java.util.List;
 
 import knockknock.delivr_it.knocknock.R;
-import knockknock.delivr_it.knocknock.models.Item;
 
 public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.HolderView> {
 

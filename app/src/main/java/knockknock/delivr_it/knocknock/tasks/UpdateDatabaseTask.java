@@ -41,7 +41,6 @@ class MatchAndUpdateBaseDatabaseVersion extends AsyncTask<Void, Void, Integer> {
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet("https://raw.githubusercontent.com/svk014/knocknockrawassets/master/base_database_version.md");
-//            HttpGet httpGet = new HttpGet("http://knock-knock-server-0.herokuapp.com/baseDbVersion");
 
             HttpResponse response = httpclient.execute(httpGet);
 

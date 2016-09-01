@@ -62,7 +62,10 @@ public class OrderProcessingActivity extends AppCompatActivity {
             currentOrderStatus.setText(order.getOrder_status());
             total.setText("Rs. " + calculateTotalWithCharges("0"));
             int totalCharges = Integer.parseInt(order.getTotal()) - calculateTotalWithCharges("0");
-            charges.setText(totalCharges + "");
+            if (totalCharges >= 0)
+                charges.setText(totalCharges + "");
+            else
+                charges.setText("To be confirmed");
             estimatedDelivery.setText(order.getEstimated_delivery());
 
         } catch (Exception ignored) {

@@ -40,7 +40,7 @@ public class PlacedOrdersActivity extends AppCompatActivity {
         placedOrderListAdapter.notifyDataSetChanged();
     }
 
-    public void showOfferDetails(View view) {
+    public void showOrderDetails(View view) {
         Intent intent = new Intent(this, OrderProcessingActivity.class);
         String orderId = view.getTag().toString();
         intent.putExtra("order_id", orderId);

@@ -1,6 +1,10 @@
 package knockknock.delivr_it.knocknock.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,23 +17,31 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.squareup.picasso.Picasso;
 
+import net.cachapa.expandablelayout.ExpandableLinearLayout;
+
+import java.io.File;
 import java.util.List;
 
 import knockknock.delivr_it.knocknock.R;
 import knockknock.delivr_it.knocknock.adapters.ItemListAdapter;
+import knockknock.delivr_it.knocknock.adapters.MainActivityMenuAdapter;
+import knockknock.delivr_it.knocknock.managers.AboutUsStorageManager;
 import knockknock.delivr_it.knocknock.managers.CartStorageManager;
 import knockknock.delivr_it.knocknock.managers.ItemStorageManager;
 import knockknock.delivr_it.knocknock.managers.MainMenuItemsManager;
 import knockknock.delivr_it.knocknock.managers.SliderLayoutManager;
 import knockknock.delivr_it.knocknock.managers.TextSliderViewManager;
-import knockknock.delivr_it.knocknock.adapters.MainActivityMenuAdapter;
 import knockknock.delivr_it.knocknock.models.Item;
+import knockknock.delivr_it.knocknock.tasks.AboutUsUpdateTask;
 import knockknock.delivr_it.knocknock.tasks.OfferRetrievalTask;
 import knockknock.delivr_it.knocknock.tasks.UpdateDatabaseTask;
 
@@ -40,19 +52,31 @@ public class MainActivity extends AppCompatActivity {
     private List<Item> searchedItems;
 
     private SliderLayout dailyOffersSliderLayout;
+    private ExpandableLinearLayout expandableLinearLayout;
+    private static boolean activityStarted;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+        init();
         inflateMainMenuItems();
         startOfferRetrieval();
         startDatabaseCheck();
         setupSearchBar();
         displayDailyOffersOnSliderLayout();
+        updateAboutUs();
+    }
 
+    private void updateAboutUs() {
+        new AboutUsUpdateTask(getBaseContext()).execute();
+    }
 
+    private void init() {
+        expandableLinearLayout = (ExpandableLinearLayout) findViewById(R.id.expandable_container);
     }
 
     private void startDatabaseCheck() {
@@ -114,8 +138,7 @@ public class MainActivity extends AppCompatActivity {
     public void displayDailyOffersOnSliderLayout() {
         dailyOffersSliderLayout = (SliderLayout) findViewById(R.id.slider);
 
-        SliderLayoutManager sliderLayoutManager = new SliderLayoutManager(dailyOffersSliderLayout);
-
+        SliderLayoutManager sliderLayoutManager = new SliderLayoutManager(MainActivity.this, dailyOffersSliderLayout);
 
         List<TextSliderView> textSliderViews = new TextSliderViewManager(MainActivity.this).textSlider();
         sliderLayoutManager.addSliderToLayout(textSliderViews);
@@ -153,9 +176,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startItemListActivity(View view) {
+        String tag = view.getTag().toString();
+        if (tag.equals("Contact Us")) {
+            return;
+        }
+        if (tag.equals("About Us")) {
+            showAboutKnocKnockPopUp();
+            return;
+        }
         Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
-        intent.putExtra("category", view.getTag().toString());
+        intent.putExtra("category", tag);
         startActivity(intent);
+
+    }
+
+    private void showAboutKnocKnockPopUp() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.about_knocknock_popup);
+        ImageView aboutUsImage = (ImageView) dialog.findViewById(R.id.about_us);
+
+        String localPath = AboutUsStorageManager.getAboutUsImage(getBaseContext());
+        if (localPath != null) {
+            Picasso.with(getBaseContext()).load(new File(localPath)).into(aboutUsImage);
+
+            dialog.show();
+        }
+
     }
 
     @Override
@@ -214,4 +262,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void showOfferDescription(String offerTitle, String offerDescription) {
+        TextView offerDescriptionTextView = (TextView) findViewById(R.id.offer_description);
+        TextView offerTitleTextView = (TextView) findViewById(R.id.offer_title);
+        offerDescriptionTextView.setText(offerDescription);
+        offerTitleTextView.setText(offerTitle);
+        expandableLinearLayout.expand();
+    }
+
+    public void hideOfferDetails(View view) {
+        expandableLinearLayout.collapse();
+    }
 }

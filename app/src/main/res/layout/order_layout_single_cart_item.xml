@@ -9,7 +9,7 @@
     android:layout_marginStart="10dp"
     android:layout_marginTop="10dp"
     android:background="@android:color/white"
-    tools:context=".activities.OrderViewActivity">
+    tools:mainActivity=".activities.OrderViewActivity">
 
     <ImageView
         android:id="@+id/cart_item_image"

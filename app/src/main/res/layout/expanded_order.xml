@@ -92,16 +92,16 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/item_prices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="4"
                     android:gravity="end"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -119,13 +119,12 @@
 
                 <TextView
                     android:id="@+id/charges"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_margin="3dp"
                     android:gravity="end"
-                    android:inputType="number"
                     android:padding="3dp"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
@@ -195,8 +194,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_margin="3dp"
-                    android:padding="3dp"
                     android:background="@drawable/orange_background"
+                    android:padding="3dp"
                     android:text="*STATUS*"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />

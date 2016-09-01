@@ -49,7 +49,6 @@ public class OfferRetrievalTask extends AsyncTask<Void, Void, JSONArray> {
             new OfferCleanupTask(mainActivityInstance).deleteOutdatedOffers(offers);
             new OfferImageWebToStorageTask(mainActivityInstance).downloadAndStoreImages(offers);
             Toast.makeText(mainActivityInstance, "Done getting offers", Toast.LENGTH_SHORT).show();
-            new ItemUpdateRetrievalTask(mainActivityInstance).execute();
 
         } catch (Exception e) {
             Toast.makeText(mainActivityInstance, "Could not get offers", Toast.LENGTH_SHORT).show();

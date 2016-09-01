@@ -34,6 +34,7 @@ import knockknock.delivr_it.knocknock.models.DeliveryModeInformation;
 import knockknock.delivr_it.knocknock.models.UserInformation;
 import knockknock.delivr_it.knocknock.models.UserInformationDTO;
 import knockknock.delivr_it.knocknock.tasks.BuildOrderTask;
+import knockknock.delivr_it.knocknock.tasks.ItemUpdateRetrievalTask;
 import knockknock.delivr_it.knocknock.tasks.OrderTask;
 import knockknock.delivr_it.knocknock.views.OrderTypeViewManager;
 
