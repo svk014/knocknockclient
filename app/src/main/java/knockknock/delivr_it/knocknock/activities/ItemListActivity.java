@@ -1,5 +1,6 @@
 package knockknock.delivr_it.knocknock.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -7,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -121,6 +125,30 @@ public class ItemListActivity extends AppCompatActivity {
         vegetarianPreferenceSwitch.setText(text);
         inflateMainMenuItems();
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.cart) {
+            Intent intent = new Intent(ItemListActivity.this, OrderViewActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.profile) {
+            Intent intent = new Intent(ItemListActivity.this, ProfileViewActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.alerts) {
+            Intent intent = new Intent(ItemListActivity.this, NotificationDisplayActivity.class);
+            startActivity(intent);
+        }
+
+        return true;
+    }
+
 
     public List<String> getCheckedSections() {
         return new ArrayList<>(checkedSections);

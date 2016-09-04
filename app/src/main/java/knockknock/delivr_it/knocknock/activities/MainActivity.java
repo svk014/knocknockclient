@@ -42,6 +42,7 @@ import knockknock.delivr_it.knocknock.managers.SliderLayoutManager;
 import knockknock.delivr_it.knocknock.managers.TextSliderViewManager;
 import knockknock.delivr_it.knocknock.models.Item;
 import knockknock.delivr_it.knocknock.tasks.AboutUsUpdateTask;
+import knockknock.delivr_it.knocknock.tasks.ItemUpdateRetrievalTask;
 import knockknock.delivr_it.knocknock.tasks.OfferRetrievalTask;
 import knockknock.delivr_it.knocknock.tasks.UpdateDatabaseTask;
 
@@ -154,7 +155,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         dailyOffersSliderLayout.startAutoCycle();
+        startOfferRetrieval();
+        startItemUpdateRetrieval();
         super.onResume();
+    }
+
+    private void startItemUpdateRetrieval() {
+        new ItemUpdateRetrievalTask(getBaseContext()).execute();
     }
 
     @Override
