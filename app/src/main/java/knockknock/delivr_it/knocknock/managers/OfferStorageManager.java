@@ -37,10 +37,10 @@ public class OfferStorageManager {
         Realm realm = Realm.getInstance(context);
         int i = 0;
         RealmQuery<Offer> where = realm.where(Offer.class);
-        for (; i < offers.length() - 1; i++) {
+        for (; i < offers.length(); i++) {
             where.notEqualTo("id", offers.getJSONObject(i).getString("id"));
         }
-        RealmResults<Offer> itemsToDelete = where.notEqualTo("id", offers.getJSONObject(i).getString("id")).findAll();
+        RealmResults<Offer> itemsToDelete = where.findAll();
 
         realm.beginTransaction();
         itemsToDelete.clear();

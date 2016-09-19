@@ -73,12 +73,12 @@ public class OrderProcessingActivity extends AppCompatActivity {
     }
 
     private String buildItemPriceQuantityDetails() throws Exception {
-        String s = "";
+        String s = "\n";
 
         JSONArray jsonArray = new JSONArray(order.getOrders());
         for (int keyIndex = 0; keyIndex < jsonArray.length(); keyIndex++) {
             JSONObject jsonObject = jsonArray.getJSONObject(keyIndex);
-            s += jsonObject.getString("quantity") + " * " + jsonObject.getString("price_per_unit") + "\n";
+            s += jsonObject.getString("quantity") + " * " + jsonObject.getString("price_per_unit") + "\n\n";
         }
 
         return s;
@@ -117,7 +117,7 @@ public class OrderProcessingActivity extends AppCompatActivity {
         for (int keyIndex = 0; keyIndex < jsonArray.length(); keyIndex++) {
             JSONObject jsonObject = jsonArray.getJSONObject(keyIndex);
             String itemName = ItemStorageManager.getNameForId(getBaseContext(), jsonObject.getString("item_id"));
-            s += itemName + "\n";
+            s += itemName + "\n\n";
         }
 
         return s;

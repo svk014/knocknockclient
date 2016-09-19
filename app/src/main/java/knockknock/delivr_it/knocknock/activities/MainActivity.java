@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         inflateMainMenuItems();
-        startOfferRetrieval();
         startDatabaseCheck();
         setupSearchBar();
         displayDailyOffersOnSliderLayout();
